@@ -304,8 +304,8 @@ for option; do
 		;;
 	--build=*|--host=*|--target=*|--exec-prefix=*|--bindir=*|--sbindir=*|\
 	--sysconfdir=*|--datadir=*|--libexecdir=*|--localstatedir=*|\
-	--enable-static|\
-	--sharedstatedir=*|--infodir=*|--enable-shared|--disable-shared|\
+	--enable-static|--program-*|\
+	--sharedstatedir=*|--infodir=*|--enable-shared|--disable-*|\
 	--cache-file=*|--srcdir=*)
 		# ignore for compat with regular configure
 		;;
@@ -698,7 +698,6 @@ int main(void) {
 EOF
 
 $CC -o .1 .1.c
-COMPILER=`./.1 2> /dev/null`
 r=$?
 rm -f .1.c .1
 
@@ -726,7 +725,7 @@ elif test "$COMPILER" = "gcc" || test "$COMPILER" = "clang" || test "$COMPILER" 
 		CC_WL_OPT="-soname"
 	fi
 
-	LDFLAGS="-Wl,$CC_WL_OPT,$SONAME $LDFLAGS"
+	#LDFLAGS="-Wl,$CC_WL_OPT,$SONAME $LDFLAGS"
 	if test "$WANT_PIC" = "yes"; then
 		LDFLAGS="$LDFLAGS -shared -fPIC"
 		CFLAGS="$CFLAGS -fPIC"
